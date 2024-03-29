@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  labels:
+    pbBenchJob: postgres-performance-us-central1
+  name: pgbench-init-pgdata-only
+  namespace: default
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        pbBenchJob: postgres-performance-us-central1
+    spec:
+      containers:
+      - args:
+        - --time
+        - "300"
+        - --client
+        - "16"
+        - --jobs
+        - "8"
+        command:
+        - pgbench
+        env:
+        - name: PGHOST
+          value: postgres-performance-us-central1-rw
+        - name: PGDATABASE
+          value: pgbench
+        - name: PGPORT
+          value: "5432"
+        - name: PGUSER
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: postgres-performance-us-central1-app
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: postgres-performance-us-central1-app
+        image: ghcr.io/cloudnative-pg/postgresql:15
+        imagePullPolicy: Always
+        name: pgbench
+        resources: {}
+      restartPolicy: Never
+status: {}
+
+
