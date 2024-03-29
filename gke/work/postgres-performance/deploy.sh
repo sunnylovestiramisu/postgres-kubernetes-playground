@@ -6,15 +6,15 @@
 # Create the GCS Bucket in the us-central1 region
 bucket1_name="gs://postgres-performance-us-central1"
 bucket1_region="us-central1"
-gsa1_name="postgres-performance-us-central1-user"
+gsa1_name="postgres-performance-user"
 gcloud storage buckets create "$bucket1_name" --location="$bucket1_region"
-gcloud iam service-accounts create "$gsa1_name" --project="songsunny-joonix"
-gcloud storage buckets add-iam-policy-binding "$bucket1_name" \
-    --member "serviceAccount:${gsa1_name}@songsunny-joonix.iam.gserviceaccount.com" \
+gcloud iam service-accounts create postgres-performance-user --project="songsunny-joonix"
+gcloud storage buckets add-iam-policy-binding "gs://postgres-performance-us-central1" \
+    --member "serviceAccount:postgres-performance-user@songsunny-joonix.iam.gserviceaccount.com" \
     --role "roles/storage.objectUser"
 
-gcloud storage buckets add-iam-policy-binding "$bucket1_name" \
-    --member "serviceAccount:${gsa1_name}@songsunny-joonix.iam.gserviceaccount.com" \
+gcloud storage buckets add-iam-policy-binding "gs://postgres-performance-us-central1" \
+    --member "serviceAccount:postgres-performance-user@songsunny-joonix.iam.gserviceaccount.com" \
     --role "roles/storage.legacyBucketReader"
 
 # Create the GCS Bucket in the TODO region
