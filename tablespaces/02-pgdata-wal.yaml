@@ -10,10 +10,6 @@ spec:
 
   instances: 1
 
-  affinity:
-    nodeSelector:
-      workload: postgres
-
   # Request Guaranteed QoS
   resources:
     requests:
@@ -26,11 +22,7 @@ spec:
   # Volume with PGDATA
   storage:
     storageClass: ebs-sc
-    size: 800Gi
-
-  walStorage:
-    storageClass: ebs-sc
-    size: 200Gi
+    size: 1000Gi
 
   # Cluster initialization
   bootstrap:

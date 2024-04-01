@@ -11,21 +11,23 @@ spec:
   maxSyncReplicas: 1
 
   # Require different zones and different nodes with label "workload=postgres"
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: topology.kubernetes.io/zone
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
-        cnpg.io/cluster: postgres-performance-us-central1
-  affinity:
-    nodeSelector:
-      workload: postgres
-    tolerations:
-    - key: "workload"
-      operator: "Equal"
-      value: "postgres"
-      effect: "NoExecute"
+  # topologySpreadConstraints:
+  # - maxSkew: 1
+  #  topologyKey: topology.kubernetes.io/zone
+  #  whenUnsatisfiable: DoNotSchedule
+  #  labelSelector:
+  #    matchLabels:
+  #      cnpg.io/cluster: postgres-performance-us-central1
+  # affinity:
+  #  tolerations:
+  #  - key: "workload"
+  #    operator: "Equal"
+  #    value: "postgres"
+  #    effect: "NoExecute"
+#   topologySpreadConstraints:
+#    - maxSkew: 1
+#      topologyKey: kubernetes.io/hostname
+#      whenUnsatisfiable: DoNotSchedule
 
   # Request Guaranteed QoS
   resources:
@@ -115,7 +117,7 @@ spec:
   serviceAccountTemplate:
     metadata:
       annotations:
-        iam.gke.io/gcp-service-account: postgres-performance-us-central1-user@songsunny-joonix.iam.gserviceaccount.com
+        iam.gke.io/gcp-service-account: postgres-performance-user@songsunny-joonix.iam.gserviceaccount.com
 
 ---
 apiVersion: postgresql.cnpg.io/v1
