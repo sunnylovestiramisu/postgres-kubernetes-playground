@@ -21,7 +21,7 @@ spec:
 
   # Volume with PGDATA
   storage:
-    storageClass: ebs-sc
+    storageClass: data-cache-sc
     size: 1000Gi
 
   # Cluster initialization
